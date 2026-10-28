@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sunlit Atelier</title>
+    <meta name="claude:viewport-fit-sides" content="cover" />
+    <style>
+      /* one committed look: the scene's own cream room; the Toolcraft panel keeps its dark tokens */
+      :root { --atelier-bg: #e9e2d6; --atelier-ink: #2a2520; --atelier-glass: rgba(250, 246, 240, 0.84); --atelier-line: rgba(42, 37, 32, 0.16); }
+      html:has(> body.atelier), body.atelier { background: var(--atelier-bg); }
+      body.atelier #stage { background: var(--atelier-bg); }
+      #track { height: 420vh; }
+      .atelier-tools { position: fixed; right: calc(env(safe-area-inset-right, 0px) + 16px); bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); display: flex; gap: 8px; z-index: 30; }
+      .atelier-tools button { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--atelier-line); background: var(--atelier-glass); color: var(--atelier-ink); backdrop-filter: blur(8px); font: 600 14px/1 Inter, system-ui, sans-serif; cursor: pointer; }
+      .atelier-tools button:focus-visible { outline: 2px solid var(--atelier-ink); outline-offset: 2px; }
+      body.atelier:not(.panel-off) .atelier-tools { right: calc(var(--panel-w) + 16px); }
+      #credits { position: fixed; right: calc(env(safe-area-inset-right, 0px) + 16px); bottom: calc(env(safe-area-inset-bottom, 0px) + 60px); width: min(330px, calc(100vw - 32px)); padding: 12px 14px; border-radius: 12px; border: 1px solid var(--atelier-line); background: var(--atelier-glass); color: var(--atelier-ink); backdrop-filter: blur(10px); font: 12px/1.55 Inter, system-ui, sans-serif; z-index: 30; }
+      #credits p { margin: 0 0 6px; }
+      #credits p:last-child { margin: 0; opacity: 0.7; }
+      #credits a { color: inherit; }
+      body.atelier .status { left: calc(env(safe-area-inset-left, 0px) + 16px); bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); width: 8px; height: 8px; padding: 0; border-radius: 50%; background: var(--atelier-ink); font-size: 0; }
+      @media (max-width: 760px) { body.atelier:not(.panel-off) .atelier-tools { right: calc(env(safe-area-inset-right, 0px) + 16px); bottom: calc(46vh + 16px); } }
+    </style>
+<link rel="stylesheet" href="atelier.css">
+</head>
+<body class="atelier panel-off">
+<div id="stage">
+      <canvas id="gl" aria-label="Xưởng nắng 3D: cuộn để camera đi xuống tầng thư viện"></canvas>
+      <div class="status" id="status" aria-label="Đang tải model"></div>
+    </div>
+    <div id="track"></div>
+    <aside id="panel" class="surface">
+      <header id="panel-head"></header>
+      <div id="panel-body"></div>
+      <footer id="panel-foot"></footer>
+    </aside>
+    <div class="atelier-tools">
+      <button type="button" id="open-panel" title="Bảng chỉnh (H)" aria-label="Bảng chỉnh">⚙</button>
+      <button type="button" id="open-credits" title="Ghi công" aria-label="Ghi công">i</button>
+    </div>
+    <div id="credits" hidden>
+      <p>Dựng lại bằng Three.js theo bố cục phòng của <a href="https://www.leoparpeix.com/" target="_blank" rel="noreferrer">leoparpeix.com</a>, ánh sáng real-time thay cho bake.</p>
+      <p>Hoa: “blue and white flowers 2” của <a href="https://sketchfab.com/3d-models/blue-and-white-flowers-2-1a209ce48f1c417ca662af4351d7245e" target="_blank" rel="noreferrer">pibini modeling</a>. Vịt: “WOODEN DUCK TOY” của <a href="https://sketchfab.com/3d-models/wooden-duck-toy-e85eccc41a1d40afa4c06819bae87654" target="_blank" rel="noreferrer">UJJWAL CHAUHAN</a>, CC BY 4.0.</p>
+      <p>Cuộn để xuống tầng thư viện · H mở bảng chỉnh.</p>
+    </div>
+<script type="module" src="atelier.js"></script>
+</body>
+</html>
